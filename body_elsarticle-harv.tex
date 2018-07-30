@@ -1,0 +1,341 @@
+%% 
+%% Copyright 2007-2018 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,authoryear]{elsarticle}
+%%==> for layout check!
+%%  \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Nuclear Physics B}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\title{New Energy Estimator for MAGIC Telescope }
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \address[label1]{}
+%% \address[label2]{}
+
+\author{Kazuma Ishio}
+
+\address{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+% MAGIC is IACT.
+%  Previous energy estimation = LUT, 15% ~500 - 700 GeV
+%  New = RF, always better >100GeV with 13% >200GeV,
+%                    comparable <100GeV
+%   highZd 18%, RMS significantly different, robust to cut
+%%%%%%%%%%%%%%%%%%%%%%%%%
+MAGIC is a system of two Imaging Atmospheric Cherenkov Telescopes (IACT), to observe the gamma ray with the standard trigger threshold of  $\sim$ 50GeV. 
+The previous energy estimation has exploited LookUpTable(LUT) method, whose energy resolution yields down to ~15\% in the energy range of   $\sim 500 - 700 $GeV in case of low zenith angle observations. But the performance is dependent on zenith angle, energy range and event cut condition. 
+
+We introduce the new energy estimator to be commonly used for the MAGIC observation data. It takes advantage of Random Forest, which is one of the Machine Learning algorithm, based on the re-investigation of the features of the events.
+
+The energy resolution is always better above 100 GeV than LUT method. In low zenith angle observation the energy resolution is around $15 \%$ down to $\sim$ 13 $\%$ above 200GeV. It is comparable with LUT below 100 GeV at $\sim$ $20 \%$.  
+We also show it performs significantly better in high zenith angle observation, in which the energy resolution stays around $18 \%$ .
+
+
+Furthermore, the energy resolution becomes more reasonable to be characterised as the width of gaussian when the distribution of normalised deviation from true value, i.e. $(E_{est} - E_{true})/E_{true}$. Highly deviated estimations from true value becomes so rare that the fitted gaus distribution contain most of the events. The disappearance of the tail gives proper evaluation of resolution in both RMS  and the width of the gaus fit to the distribution, which are similar values of  XX and XX.
+
+
+Furthermore,  the new estimator is robust on looser cut, and performance doesn't degrade significantly.  This allows us to harvest from the performance in the standard analysis, which use only hadronness cuts and theta square cuts.
+
+
+\end{abstract}
+
+\begin{keyword}
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+
+\end{frontmatter}
+
+%% \linenumbers
+
+%% main text
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+% MAGIC is IACT, 
+% two tels see showers
+% 17m parabolic dish and 1039 PMT at 1.6 sampling needed
+% parametrisation
+%%%%%%%%%%%%%%%%%%%%%%%%%
+MAGIC (Major Atmospheric Gamma Imaging Cherenkov telescopes), located at the altitude of 2200 m a.s.l. on the Roque de los Muchachos Observatory on Canary Island of La Palma performs gamma-ray observations as Imaging Atmospheric Cherenkov Telescopes (IACT).
+It consists of two telescopes, to characterise the electro-magnetic cascade showers produced by gamma-ray of very high energy (VHE, $\gtrsim 30$ GeV) penetrating the atmosphere, by detecting the Cherenkov photons generated by the cascade particles travelling faster than speed of light in the atmosphere.
+To detect very small number of photons arriving in very short time scale of $\sim $ a few ns, Both have 17 m diameter mirror dish in parabolic shapes and 1039 photomultipliers (PMTs) at the focal planes, at the sampling rate of 1.6 GHz.
+
+From the waveform of the PMTs, charge and timing information are extracted.
+The information of the noise pixels which are not related to the shower image are discarded, and the remaining pixel informations are used to calculate the features of the image of the shower, such as image shape parameters and the timing parameters, in particular the gradient measured along the main axis of the image. Those parameters are used to compute secondary parameters, namely, Hadronness, stereo parameters calculated from the crossing point of the main axes of the Hillas ellipses in the individual cameras ,and stereo parameters from the reconstructed direction using DISP RF method.
+
+For the energy estimation,  image shape parameters, timing parameters, stereo parameters from both the crossing point and the DISP RF reconstructed direction are widely used.
+
+Among the features to determine energy, the primal parameters are Size 
+The energy is estimated from the features. 
+
+We begin with explaining the data to supervise the estimator In section XX, and the estimators in the previous strategy( LUT) and the new strategy ( RF) in section XX.
+We compare the performances of LUT and RF in section XX, where we also show the performances of RF on looser cut condition and large zenith observation.
+In section XX we discuss the the validity comparing different methods and simulation data and the observation data.
+
+
+\section{Data for generation and test of the estimator}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Important info:
+%  - Term of the tel response
+%  - PSF
+%  - reflectivity?
+%%%%%%%%%%%%%%%%%%%%%%%%%
+Since the shower event we detect cannot trace back to the original energy of the incoming gamma ray, simulated $\gamma$ ray is used for generating estimator and evaluating the performance. In the simulation of  $\gamma$ ray, the energy (true energy) of $\gamma$ ray, incoming direction and impact point of the shower is assigned. From the generation of the shower and  Cherenkov photons, thorough the detection with the telescopes to the calculation of the features is computed event by event. The estimater tries to predict the energy of the gamma-ray from those measured features using a set of simulated data. And the performance is evaluated as how well the estimator can predict the energies from the features in another set of simulated data, in terms of the deviation of estimated energy from the true energy.
+
+Simulation data reflects the configuration of MAGIC telescopes in specific term to reproduce performance, specifying PSF , reflectivity, etc.. . Here we refer to the configuration in 20XX - 20XX.
+
+\section{Generation of the estimator}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIX ME! VERY BAD SENTENCES
+%   Important parameters
+%     - LZd: Impact and Disp
+%     - HZd: TimeGrad as complementary to Impact
+%%%%%%%%%%%%%%%%%%%%%%%%%
+The previous version of the estimator adopted LookUp Table method\label{MAGIC_perform}
+the new estimator adopts Random Forest (RF). 
+All the features are given to the estimator.
+
+Basic idea is that 
+Size is almost proportional to energy. And many correction parameters are needed. Especially, it varies because of the distance of the shower which radiate Cherenkov photons to the telescopes. The two main such effects are the impact point, namely the distance of the shower axis reaching on the ground, and displacement, namely the angular distance from source position to the brightest point of the shower. They can be regarded as the offset of the shower axis on the ground and the offset of the shower along the shower axis.
+
+Those parameters are very well calculated using DISP RF method, and they both have the true values. In case of displacement, the source position assigned in the simulation can be used. In case of impact, the impact position assigned in the simulation can be used.
+As long as a feature true value and has negligible systematics to the true value, the estimator can be more precise to the true estimation, using the true value. 
+
+
+The impact parameters deduced from the reconstructed direction of $\gamma$ ray by DISP RF method is very precise to the true impact parameters.
+
+The fluctuation from true value is typically the order of several tens of meters. 
+
+
+However, in case of the high zenith observation above Zd > 50 deg, the fluctuation becomes significantly larger as the shower location becomes more distant from the ground. The order of a few 100 m of the fluctuation doesn't give useful information any longer, thus this feature cannot be used. 
+
+Instead, time gradient is directly related to the impact parameter, and higher energy threshold makes the entire energy range 
+
+Timing information is  directly related to the distance to Impact point.
+But the time gradient has uncertainty in the direction, and 
+until around 200 m the information is degenerated, because the sign flips around 120 m.
+Because of this, time gradient is not dominant information to determine 
+Impact parameter.
+To overcome this problem, the impact parameter estimated by DISP RF method can be used.
+
+
+
+
+
+
+
+
+\section{Performance}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1st Plan
+%  -  Distribution of (E_{est} - E_{true})/E_{true}
+%        -> stable distributions
+%        -> small population of high deviation
+%  -  Performance comparison LUT<->RF
+%      -  under cut condition in prev. perf. paper.
+%         -> comparison of Bias and Resolution 
+%      -  under practical cut condition.
+%         -> comparison of Bias and Resolution 
+%  -  Performamnce in different Zd
+%      -   0 - 35
+%      - 35 - 50
+%      - 50 - 65
+%      - 65 - 80
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%2nd Plan
+%  -  Performance comparison LUT<->RF
+%           in low zenith range 0-35
+%           in low zenith range 0-35 and looser cut
+%  - Performance in 
+%      - 35 - 50
+%      - 50 - 65
+%      - 65 - 80
+%%%%%%%%%%%%%%%%%%%%%%%%%
+We evaluated the performance of the energy estimation.
+Since the deviation of the estimated energy from true energy
+ differs event by event, it is evaluated as the statistical sum, 
+ constructing the distribution of $(E_{est} - E_{true})/E_{true}$.
+We evaluate the energy resolution in two ways, the width of the fitted gaussian to the distribution and  RMS.
+
+While the width characterise typical deviation, it discard the outliar events which are not contained in the gaussian shape. Thus the performance should be evaluated also in RMS. 
+
+
+\subsection{standard zenith }
+Here we show the comparison of the bias and resolution between LUT and the new estimator. 
+
+
+LUT has much larger RMS compared to the new estimator, due to the significant amount of events deviated outside the fitted gaussian.
+
+
+
+While the performance of LUT degrades when looser cut is applied, the new estimator performs still well. 
+Thus this performance can be taken into account also in practical cut condition , like the application of only Hadronness cut and ThetaSquare cut.
+
+\subsection{high zenith}
+The performance of the large zenith observation remains stable at around $18 \%$. 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Validation}
+% Plan
+%  - possibbility
+%
+Since the energy estimators are supervised fully by the simulated data, we need to investigate if it is consistent with the reality. Although we cannot know  the true energy of the gamma rays and we can asign likeliness of gamma-ray event by event,  we can indirectly approach through On - Off distribution . 
+
+\subsection{Validation dataset}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIX ME!
+% What point for the obs data should we give the information?
+%
+The observation data of Mrk421 in April in 2013, which recorded very high flux state. 
+
+\subsection{Comparison between different estimators}
+The estimated values should not include systematic differences. 
+The comparison between LUT method and StereoRF method.
+We compare the spectra obtained by them.
+
+
+
+
+Eevn if the estimator miss the information from one telescope, the estimation should already be close to each other.
+
+
+The comparison betwen the 
+
+
+
+\subsection{Feature-value distributions}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% To do:
+% To avoid the effect of migration between different Etrue,
+% spectrum weighting to the MC? real? distribution must be introduced.
+%%%%%%%%%%%%%%%%%%%%%%%%%
+When a gamma ray at given energy enters the atmosphere from a given direction to a given point on the ground with respect to the telescopes, the observed parameters should be under certain probability distribution, fluctuated only by statistical uncertainty.
+Therefore, if the data is taken at sufficiently small zenith range, the effect of the direction becomes sufficiently small and the reaching position of the shower on the ground will be averaged out, concequently only the dependency on the energy remains in the observed parameters.
+
+
+
+%If gamma-ray photons in mono energy penetrate the atmosphere from %particular direction, they would create the same shower with statistical f%luctuation. Concequently, the features distribute under certain probability %distribution to indicate the energy.
+%This probability distribution should differ depending on the primal energy, %because this is why we can generate the energy estimator from the features.
+
+The event parameter distribution can be compared 
+The distribution of On region subtracted by the distribution of Off region should remain gamma-ray events.
+
+To avoid the effect of migration between different Etrue,
+ the distribution is weighted based on the different spectrum between  MC?  and real? data.
+
+Siumulated gamma are produced with a spectral index of -1.6 (HE). 
+On the other hand, the Mrk421 data shows the spectral function of
+
+The population of simulated gamma is weighted by 
+SpectrumofMrk421/spectrum of MC
+in 
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
+
+%% If you have bibdatabase file and want bibtex to generate the
+%% bibitems, please use
+%%
+%%  \bibliographystyle{elsarticle-harv} 
+%%  \bibliography{<your bibdatabase>}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+\section{Conclusion}
+
+\begin{thebibliography}{00}
+
+%% \bibitem[Author(year)]{label}
+%% Text of bibliographic item
+
+\bibitem[Aleksic J., et al.  (2015)]{MAGIC_perform}
+
+\end{thebibliography}
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.
